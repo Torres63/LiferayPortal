@@ -1,0 +1,10 @@
+Bundle-Name: CrudApps-api
+Bundle-SymbolicName: crudapps.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	crudapps.exception,\
+	crudapps.model,\
+	crudapps.service,\
+	crudapps.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../CrudApps-service/service.xml
