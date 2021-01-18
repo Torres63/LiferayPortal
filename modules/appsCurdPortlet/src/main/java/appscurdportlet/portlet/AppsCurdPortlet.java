@@ -27,7 +27,7 @@ import java.util.List;
         property = {
                 "javax.portlet.version=3.0",
                 "com.liferay.portlet.display-category=category.sample",
-                "com.liferay.portlet.header-portlet-css=/css/main.css",
+                "com.liferay.portlet.header-portlet-css=/css/main.scss",
                 "com.liferay.portlet.instanceable=true",
                 "javax.portlet.display-name=AppsCurd",
                 "javax.portlet.init-param.template-path=/",

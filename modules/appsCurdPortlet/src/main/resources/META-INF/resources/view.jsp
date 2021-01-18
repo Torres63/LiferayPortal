@@ -14,15 +14,34 @@
 	</a>
 </div>
 <c:forEach items="${appList}" var="app">
+	<h1>
+		Responsive Column Rows
+	</h1>
+	<ul>
+		<li class="xs">1 column xs</li>
+		<li class="sm">2 column sm</li>
+		<li class="md">3 column md</li>
+		<li class="lg">4 column lg</li>
+		<li class="xl">5 column xl</li>
+	</ul>
 
-<div class="card" style="width: 18rem;">
-	<img src="..." class="card-img-top" alt="...">
-	<div class="card-body">
-		<h5 class="card-title">${app.getTitle()}</h5>
-		<p class="card-text">${app.getDescription()}</p>
-		<a href="${app.getUrl()}" class="btn btn-primary">Go somewhere</a>
+
+	<div class="container">
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+			<div class="col mb-4">
+				<div class="card">
+					<img src="https://dummyimage.com/600x400/000/fff.jpg" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">${app.getTitle()}</h5>
+						<p class="card-text">${app.getDescription()}</p>
+						<a href="${app.getUrl()}" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
-</div>
+	<!-- /.container -->
 </c:forEach>
 
 
