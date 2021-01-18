@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-	<bean id="crudapps.service.FooLocalService" class="crudapps.service.impl.FooLocalServiceImpl" />
-	<bean id="crudapps.service.FooService" class="crudapps.service.impl.FooServiceImpl" />
-	<bean id="crudapps.service.persistence.FooPersistence" class="crudapps.service.persistence.FooPersistenceImpl" parent="basePersistence" />
-</beans>

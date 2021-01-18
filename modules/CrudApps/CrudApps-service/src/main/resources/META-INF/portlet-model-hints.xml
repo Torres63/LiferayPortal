@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="crudapps.model.CrudApps">
+		<field name="uuid" type="String" />
+		<field name="appId" type="long" />
+		<field name="title" type="String" />
+		<field name="description" type="String" />
+		<field name="url" type="String" />
+	</model>
+</model-hints>

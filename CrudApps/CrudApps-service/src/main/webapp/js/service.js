@@ -1,1 +1,0 @@
-Liferay.Service.register("Liferay.Service.FOO", "crudapps.service", "CrudApps-service");
