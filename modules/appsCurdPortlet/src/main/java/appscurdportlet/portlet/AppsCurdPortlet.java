@@ -26,8 +26,9 @@ import java.util.List;
         immediate = true,
         property = {
                 "javax.portlet.version=3.0",
+                "com.liferay.portlet.css-class-wrapper=appsCurdPortlet",
                 "com.liferay.portlet.display-category=category.sample",
-                "com.liferay.portlet.header-portlet-css=/css/main.scss",
+                "com.liferay.portlet.header-portlet-css=/css/main.css",
                 "com.liferay.portlet.instanceable=true",
                 "javax.portlet.display-name=AppsCurd",
                 "javax.portlet.init-param.template-path=/",
