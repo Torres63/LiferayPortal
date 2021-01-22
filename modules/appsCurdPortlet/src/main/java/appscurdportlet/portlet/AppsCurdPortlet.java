@@ -10,9 +10,6 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import crudapps.model.CrudApps;
 import crudapps.service.CrudAppsLocalService;
 import org.osgi.service.component.annotations.Component;
@@ -65,38 +62,6 @@ public class AppsCurdPortlet extends MVCPortlet {
         apps.setUrl(url);
         crudAppsLocalService.addCrudApps(apps);
 
-
-    }
-    @ProcessAction(name = "addLayout")
-    public void addLayout(ActionRequest actionRequest, ActionResponse actionResponse) {
-        String name = ParamUtil.getString(actionRequest, "name");
-        String title = ParamUtil.getString(actionRequest, "title");
-        String description = ParamUtil.getString(actionRequest, "description");
-        log.info(":V TESTEANDo");
-
-
-        Unirest.setTimeouts(0, 0);
-        try {
-            HttpResponse<String> response = Unirest.post("http://localhost:8080/api/jsonws/layout/add-layout")
-                    .header("Authorization", "Basic dGVzdEB0ZXN0LmNvbTp4ZA==")
-                    .header("Content-Type", "application/x-www-form-urlencoded")
-                    .header("Cookie", "GUEST_LANGUAGE_ID=en_US; JSESSIONID=D419F9FAA91B268C059CE14D65E75A80")
-                    .field("groupId", "20124")
-                    .field("privateLayout", "true")
-                    .field("parentLayoutId", "0")
-                    .field("localeNamesMap", "{\"en_US\":\""+name+"\"}")
-                    .field("localeTitlesMap", "{\"en_US\":\""+title+"\"}")
-                    .field("descriptionMap", "{\"en_US\":\""+description+"\"}")
-                    .field("keywordsMap", "{\"en_US\":\""+name+"\"}")
-                    .field("robotsMap", "{\"en_US\":\""+name+"\"}")
-                    .field("type", "portlet")
-                    .field("typeSettings", "url=https://www.google.com\\nlayoutUpdateable=true")
-                    .field("hidden", "false")
-                    .field("friendlyURLMap", "{\"en_US\":\"/"+name+"\"}")
-                    .asString();
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
 
     }
 
