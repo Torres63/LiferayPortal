@@ -13,6 +13,16 @@
 		<i class="glyphicon glyphicon-plus"></i> Add App
 	</a>
 </div>
+
+<portlet:renderURL var="addLayoutRenderURL">
+	<portlet:param name="mvcPath" value="/add-layout.jsp"/>
+</portlet:renderURL>
+
+<div class="mb-5">
+	<a href="<%= addLayoutRenderURL %>" class="btn  btn-primary btn-default">
+		<i class="glyphicon glyphicon-plus"></i> Add Layout
+	</a>
+</div>
 <div class="container">
 	<div class="card-deck">
 	<c:forEach items="${appList}" var="app">

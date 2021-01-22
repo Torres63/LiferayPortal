@@ -1,4 +1,6 @@
 Bundle-Name: appsCurdPortlet
 Bundle-SymbolicName: appscurdportlet
 Bundle-Version: 1.0.0
-Export-Package: appscurdportlet.constants
+Export-Package: appscurdportlet.constants,com.mashape.unirest.http.*,\
+com.mashape.unirest.request.*,org.apache.http.*,org.apache.commons.codec.binary.*,\
+    org.apache.commons.codec.*

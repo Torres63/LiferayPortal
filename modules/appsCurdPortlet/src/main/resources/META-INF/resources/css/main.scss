@@ -36,3 +36,68 @@
 
 }
 
+
+
+
+
+.component-card img {
+  height: 200px;
+  border: 1px solid #DDDDDD;
+  border-radius: 12px;
+}
+img {
+  object-fit: scale-down;
+}
+
+img.w-100{
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+}
+.logo {
+  background: #D90029;
+  width: 100vh;
+}
+
+#iconOne{
+  background: url('..');
+  display: block;
+  background-size: contain;
+  background-repeat: round;
+  box-shadow: 0px 3px 6px #00000029;
+  opacity: 1;
+}
+.iconContainer {
+  height: 7vh;
+  width: 7vh;
+  border-radius: 50%;
+}
+
+h2.clearfix {
+  color: #D90029;
+}
+.align-items-center.autofit-row {
+  background: #f3f3f3;
+}
+
+input#dkrk___q {
+  background: white;
+  border-radius: 50px 0px 0px 50px;
+}
+div#p_p_id_com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch_ {
+  width: 100%;
+  margin-left: 30px;
+}
+.input-group-inset-item.input-group-inset-item-after {
+  border-radius: 0px 50px 50px 0px;
+  background: white;
+  color: red;
+}
+.navbar{
+  padding: 0;
+}
+.container.user-personal-bar {
+  padding: 0;
+}
+.row.align-items-lg-center.align-items-sm-center.align-items-center.align-items-md-center.flex-lg-row.flex-sm-row.flex-row.flex-md-row.no-gutters{
+  background: #DB0b2b;
+}
