@@ -13,7 +13,7 @@
     String url = renderRequest.getRenderParameters().getValue("url");
 %>
 <aui:form action="<%= updateAppActionURL %>" method="post" >
-    <aui:input name="appId" type="hidden" value="<%=Long.parseLong(appId)%>"/>
+        <aui:input name="appId" type="hidden" value="<%=Long.parseLong(appId)%>"/>
     <aui:input name="title" type="  text" value="${app.title}"/>
     <aui:input name="description" type="text" value="${app.description}"/>
     <aui:input name="url" type="text" value="${app.url}"/>

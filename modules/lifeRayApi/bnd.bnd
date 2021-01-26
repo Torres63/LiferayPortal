@@ -1,0 +1,7 @@
+Bundle-Name: lifeRayApi
+Bundle-SymbolicName: liferayapi
+Bundle-Version: 1.0.0
+Export-Package: liferayapi.constants,com.mashape.unirest.http.*,\
+com.mashape.unirest.request.*,org.apache.http.*,org.apache.commons.codec.binary.*,\
+    org.apache.commons.codec.*
+

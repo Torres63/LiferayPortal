@@ -17,7 +17,7 @@
 	<div class="card-deck">
 	<c:forEach items="${appList}" var="app">
 		<div class="card">
-			<img class="card-img-top" src="https://picsum.photos/309/200?image=1050" alt="Card image cap">
+			<img class="card-img-top"  src="https://picsum.photos/309/200?image=1050" alt="Card image cap">
 			<div class="card-body">
 				<h5 class="card-title">${app.getTitle()}</h5>
 				<p class="card-text">${app.getDescription()}</p>
