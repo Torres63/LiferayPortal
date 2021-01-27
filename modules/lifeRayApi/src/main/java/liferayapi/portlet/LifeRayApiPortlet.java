@@ -116,25 +116,31 @@ public class LifeRayApiPortlet extends MVCPortlet {
     }
     //Crear grupo de paginas
     @ProcessAction(name="getGroups2")
-    public ArrayList<String[]> getGroups2(){
+    public String getGroups2(){
         JSONArray arr = new JSONArray(utilApi.getGroupsByUser());
 
         ArrayList<String[]> outerArr = new ArrayList<String[]>();
         String[] myString1= {};
-
+        JSONArray jsonArrayOutput = new JSONArray();
         for(int i = 0; i < arr.length(); i++){
             myString1= new String[]{arr.getJSONObject(i).getString("groupId"),
                     arr.getJSONObject(i).getString("descriptiveName")};
             outerArr.add(myString1);
 
-        }
-        for (String[] arr2 : outerArr) {
-            System.out.println();
-            log.info("result XD=" +Arrays.toString(arr2));
+            JSONObject finalxd=new JSONObject();
+            finalxd.put("id",arr.getJSONObject(i).getString("groupId"));
+            finalxd.put("name", arr.getJSONObject(i).getString("descriptiveName"));
+            jsonArrayOutput.put(finalxd);
 
         }
+//        for (String[] arr2 : outerArr) {
+//            System.out.println();
+//            log.info("result XD=" +Arrays.toString(arr2));
+//
+//        }
+           log.info("result JSON=" +jsonArrayOutput);
 
-        return outerArr;
+        return jsonArrayOutput.toString();
     }
 
 

@@ -10,7 +10,7 @@ public class utilApi {
 
         try {
              response = Unirest.get("http://localhost:8080/api/jsonws/group/get-user-sites-groups")
-                    .header("Authorization", "Basic dGVzdEB0ZXN0LmNvbTp4ZA==")
+                    .header("Authorization", "Basic dGVzdEB0ZXN0LmNvbTpjZg==")
                     .header("Cookie", "GUEST_LANGUAGE_ID=en_US; JSESSIONID=D86B36244D806EADB8588C43B1C600B7")
                     .asString();
         } catch (UnirestException e) {
@@ -26,7 +26,7 @@ public class utilApi {
         HttpResponse<String> response = null;
         try {
             response = Unirest.post("http://localhost:8080/api/jsonws/group/add-group")
-                    .header("Authorization", "Basic dGVzdEB0ZXN0LmNvbTp4ZA==")
+                    .header("Authorization", "Basic dGVzdEB0ZXN0LmNvbTpjZg==")
                     .header("Content-Type", "application/x-www-form-urlencoded")
                     .header("Cookie", "GUEST_LANGUAGE_ID=en_US")
                     .field("parentGroupId",parentGroup )
@@ -57,7 +57,7 @@ public class utilApi {
         HttpResponse<String> response = null;
         try {
             response = Unirest.post("http://localhost:8080/api/jsonws/layout/add-layout")
-                    .header("Authorization", "Basic dGVzdEB0ZXN0LmNvbTp4ZA==")
+                    .header("Authorization", "Basic dGVzdEB0ZXN0LmNvbTpjZg==")
                     .header("Content-Type", "application/x-www-form-urlencoded")
                     .header("Cookie", "GUEST_LANGUAGE_ID=en_US")
                     .field("groupId", parentGroup)

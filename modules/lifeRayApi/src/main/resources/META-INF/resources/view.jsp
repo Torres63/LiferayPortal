@@ -6,13 +6,15 @@
 
 <%
 	List<String> my_array = (List<String>)renderRequest.getAttribute("my_array");
-	List<String> my_array2 = (List<String>)renderRequest.getAttribute("my_array2");
+	String my_array2 = (String) renderRequest.getAttribute("my_array2");
 
 %>
 
 <portlet:renderURL var="addLayoutRenderURL">
 	<portlet:param name="mvcPath" value="/add-layout.jsp"/>
-</portlet:renderURL>
+	<portlet:param name="my_array2" value="${my_array2}"/>
+
+</portlet:renderURL>☺
 <portlet:renderURL var="addGroupRenderURL">
 	<portlet:param name="mvcPath" value="/add-group.jsp"/>
 	<portlet:param name="my_array" value="${my_array}"/>
