@@ -40,10 +40,15 @@ import java.util.List;
 )
 public class LifeRayApiPortlet extends MVCPortlet {
     String response = "";
-    private Log log = LogFactoryUtil.getLog(this.getClass().getName());
+    List<String> responses=new ArrayList<String>();
 
+    private Log log = LogFactoryUtil.getLog(this.getClass().getName());
+    String groupCreated="";
     @ProcessAction(name = "addLayout")
     public String addLayout(ActionRequest actionRequest, ActionResponse actionResponse) {
+        String urlGen="";
+        String groupName="";
+        String siteName="";
         //Obtener valores de add-layout.jsp
         String name = ParamUtil.getString(actionRequest, "name");
         String title = ParamUtil.getString(actionRequest, "title");
@@ -63,14 +68,22 @@ public class LifeRayApiPortlet extends MVCPortlet {
         } else {  typeSettings = "";  }
         //------
 
-
-        //Consumir api (Hacer configuraciones en base de datos)
+        //Consumir api para la creacion del layout (Entiendase como sitio)
         response = utilApi.addLayout(name, title, description, type, typeSettings,parentSite);
-        JSONObject obj = new JSONObject(response);
 
-        //Mandar respuesta a view.jsp (consultar linea 4)
-        actionRequest.setAttribute("response", obj.getString("friendlyURL"));
-        log.info("result=" + obj.getString("friendlyURL"));
+        //Obtener nombre del sitio creado en base a lo que se lleno en el form add-layout (agregar sitio)
+        JSONObject obj = new JSONObject(response);
+        siteName= obj.getString("friendlyURL");
+        //Obtener nombre de parentSite en base al ID obtenido del form en add-group
+        JSONObject obj2 = new JSONObject(utilApi.getGroupById(parentSite));
+        groupName=obj2.getString("friendlyURL");
+
+        //Construir url
+        urlGen="http://localhost:8080/group"+groupName+siteName;
+        log.info("Response Add Layout=" + response);
+        //Mandar URL generada al view.jsp
+        actionRequest.setAttribute("response", urlGen);
+        responses.add(urlGen);
         return response;
     }
     //Crear grupo de paginas
@@ -81,77 +94,39 @@ public class LifeRayApiPortlet extends MVCPortlet {
         String parentGroup=ParamUtil.getString(actionRequest,"parentGroup");
         response = utilApi.addGroup(name,description,parentGroup);
         JSONObject obj = new JSONObject(response);
-        log.info("result=" + response);
-
-        actionRequest.setAttribute("response",obj.getString("groupId"));
+        log.info("Response Add Group=" + response);
+        actionRequest.setAttribute("response",obj.getString("friendlyURL"));
         return response;
     }
 
+
     //Crear grupo de paginas
     @ProcessAction(name="getGroups")
-    public List<String> getGroups(){
-        //  friendlyURL
+    public String getGroups(){
+        //Utilidad = LLenar los combos de los forms que requieren GroupId (Entiendase padre del sitio)
+
+        //Obtengo los grupos por usuario
         JSONArray arr = new JSONArray(utilApi.getGroupsByUser());
-        List<String> list = new ArrayList<String>();
-
-        for(int i = 0; i < arr.length(); i++){
-            list.add(arr.getJSONObject(i).getString("groupId"));
-
-        }
-        log.info("result LISTTTt=" + list);
-
-
-        ArrayList<String[]> outerArr = new ArrayList<String[]>();
-        String[] myString1= {};
-
-        for(int i = 0; i < arr.length(); i++){
-            list.add(arr.getJSONObject(i).getString("groupId"));
-            myString1= new String[]{arr.getJSONObject(i).getString("groupId"),
-                    arr.getJSONObject(i).getString("descriptiveName")};
-            outerArr.add(myString1);
-
-        }
-
-        return list;
-    }
-    //Crear grupo de paginas
-    @ProcessAction(name="getGroups2")
-    public String getGroups2(){
-        JSONArray arr = new JSONArray(utilApi.getGroupsByUser());
-
-        ArrayList<String[]> outerArr = new ArrayList<String[]>();
-        String[] myString1= {};
         JSONArray jsonArrayOutput = new JSONArray();
+        //Filtro los parametros y los meto en un JSON para su facil transporte entre .jsp
         for(int i = 0; i < arr.length(); i++){
-            myString1= new String[]{arr.getJSONObject(i).getString("groupId"),
-                    arr.getJSONObject(i).getString("descriptiveName")};
-            outerArr.add(myString1);
-
             JSONObject finalxd=new JSONObject();
             finalxd.put("id",arr.getJSONObject(i).getString("groupId"));
             finalxd.put("name", arr.getJSONObject(i).getString("descriptiveName"));
             jsonArrayOutput.put(finalxd);
-
         }
-//        for (String[] arr2 : outerArr) {
-//            System.out.println();
-//            log.info("result XD=" +Arrays.toString(arr2));
-//
-//        }
-           log.info("result JSON=" +jsonArrayOutput);
 
         return jsonArrayOutput.toString();
     }
 
 
-    //Mandar a view.jsp  as travez del render, (consultar linea 5)
+    //Mandar a view.jsp  as travez del render
 
     @Override
     public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
             throws IOException, PortletException {
-        renderRequest.setAttribute("my_array", getGroups());
-        renderRequest.setAttribute("my_array2", getGroups2());
-
+        renderRequest.setAttribute("groups", getGroups());
+        renderRequest.setAttribute("responses",responses);
         super.doView(renderRequest, renderResponse);
     }
 }

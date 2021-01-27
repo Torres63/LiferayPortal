@@ -1,24 +1,42 @@
 <%@ page import="org.json.JSONObject" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %>
 <%@ include file="/init.jsp" %>
 <portlet:defineObjects />
 
-
 <%
-	List<String> my_array = (List<String>)renderRequest.getAttribute("my_array");
-	String my_array2 = (String) renderRequest.getAttribute("my_array2");
+	String groups = (String) renderRequest.getAttribute("groups");
+	List<String> responses = (List<String>) renderRequest.getAttribute("responses");
 
 %>
+	<!-- Position toasts -->
+	<div class="toast-container position-absolute top-0 end-0 p-3" style="top: 0; right: 0;">
+
+
+		<% for (String string : responses) { %>
+		<div class="toast fade show"  role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<strong class="mr-auto"><i class="fa fa-globe"></i> Nueva aplicacion!</strong>
+				<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+			</div>
+			<div class="toast-body">
+				<%= string %>
+			</div>
+		</div>
+		<% } %>
+
+
+	</div>
+
 
 <portlet:renderURL var="addLayoutRenderURL">
 	<portlet:param name="mvcPath" value="/add-layout.jsp"/>
-	<portlet:param name="my_array2" value="${my_array2}"/>
+	<portlet:param name="groups" value="${groups}"/>
 
-</portlet:renderURL>☺
+</portlet:renderURL>
 <portlet:renderURL var="addGroupRenderURL">
 	<portlet:param name="mvcPath" value="/add-group.jsp"/>
-	<portlet:param name="my_array" value="${my_array}"/>
-	<portlet:param name="my_array2" value="${my_array2}"/>
+	<portlet:param name="groups" value="${groups}"/>
 
 </portlet:renderURL>
 
@@ -34,21 +52,8 @@
 
 </div>
 
-<div class="alert alert-success" role="alert">
-	<c:out value="${response}"/>
-</div>
-
-
-
-
-<%--<aui:select name="title">--%>
-<%--	<% for (String string : appList) { %>--%>
-<%--	<option value=""> <%= string %></option>--%>
-<%--	<% } %>--%>
-<%--</aui:select>--%>
-<%--<aui:select name="title2">--%>
-<%--	<c:forEach items="${appList}" var="currOption">--%>
-<%--		<option value=""> ${currOption}</option>--%>
-<%--	</c:forEach>--%>
-
-<%--</aui:select>--%>
+<script>
+	$(document).ready(function(){
+		$(".toast").toast();
+	});
+</script>

@@ -10,8 +10,8 @@
 <portlet:actionURL name="addGroup" var="addGroupRenderURL"/>
 
 <%
-    String my_array2= renderRequest.getRenderParameters().getValue("my_array2");
-    JSONArray array = new JSONArray(my_array2);
+    String groups= renderRequest.getRenderParameters().getValue("groups");
+    JSONArray array = new JSONArray(groups);
     List<JSONObject> list = new ArrayList();
     for (int i = 0; i < array.length();list.add(array.getJSONObject(i++)));
 %>

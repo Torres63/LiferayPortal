@@ -4,6 +4,23 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.io.*;
 public class utilApi {
+
+    public static String getGroupById(String id){
+        Unirest.setTimeouts(0, 0);
+        HttpResponse<String> response=null;
+        try {
+            response = Unirest.post("http://localhost:8080/api/jsonws/group/get-group")
+                    .header("Authorization", "Basic dGVzdEB0ZXN0LmNvbTpjZg==")
+                    .header("Content-Type", "application/x-www-form-urlencoded")
+                    .header("Cookie", "GUEST_LANGUAGE_ID=en_US; JSESSIONID=A27FA9008EFB0635C84DDACDE863F4B4")
+                    .field("groupId", id)
+                    .asString();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+        return response.getBody();
+    }
+
     public static String getGroupsByUser(){
         Unirest.setTimeouts(0, 0);
         HttpResponse<String> response = null;
