@@ -4,7 +4,7 @@
 <portlet:actionURL name="addApp" var="appAppActionURL"/>
 
 
-<h2>Add Student Form here !</h2>
+<h2>Add Card Form here !</h2>
 
 <aui:form action="<%=appAppActionURL %>" name="appForm" method="POST">
 

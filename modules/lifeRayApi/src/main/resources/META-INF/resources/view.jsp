@@ -7,27 +7,12 @@
 <%
 	String groups = (String) renderRequest.getAttribute("groups");
 	List<String> responses = (List<String>) renderRequest.getAttribute("responses");
-
+	String value="";
 %>
-	<!-- Position toasts -->
-	<div class="toast-container position-absolute top-0 end-0 p-3" style="top: 0; right: 0;">
 
-
-		<% for (String string : responses) { %>
-		<div class="toast fade show"  role="alert" aria-live="assertive" aria-atomic="true">
-			<div class="toast-header">
-				<strong class="mr-auto"><i class="fa fa-globe"></i> Nueva aplicacion!</strong>
-				<button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-			</div>
-			<div class="toast-body">
-				<%= string %>
-			</div>
-		</div>
-		<% } %>
-
-
-	</div>
-
+<portlet:actionURL name='reduceArray' var="deleteAppToast">
+	<portlet:param name="valueArray" value="${value}" />
+</portlet:actionURL>
 
 <portlet:renderURL var="addLayoutRenderURL">
 	<portlet:param name="mvcPath" value="/add-layout.jsp"/>
@@ -39,6 +24,24 @@
 	<portlet:param name="groups" value="${groups}"/>
 
 </portlet:renderURL>
+	<!-- Position toasts -->
+	<div class="toast-container position-absolute top-0 end-0 p-3" style="top: 0; right: 0;">
+
+
+		<% for (String string : responses) { %>
+		<%=value=string%>
+		<div class="toast fade show"  role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<strong class="mr-auto"><i class="fa fa-globe"></i> Nueva aplicacion!</strong>
+				<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" onclick="<%=deleteAppToast%>">&times;</button>
+			</div>
+			<div class="toast-body">
+				<%= string %>
+			</div>
+		</div>
+		<% } %>
+	</div>
+
 
 <div class="mb-5">
 	<a href="<%= addLayoutRenderURL %>" class="btn  btn-primary btn-default">

@@ -22,4 +22,6 @@ dependencies {
 	compile group: 'org.json', name: 'json', version: '20160212'
 	cssBuilder group: "com.liferay", name: "com.liferay.css.builder", version: "3.0.2"
     compileOnly 'org.json:json'
+	// https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+	compileOnly 'javax.servlet:servlet-api:2.5'
 }

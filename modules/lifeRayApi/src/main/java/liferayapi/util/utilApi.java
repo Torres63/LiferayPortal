@@ -1,16 +1,34 @@
 package liferayapi.util;
+import com.liferay.portal.kernel.portlet.DynamicActionRequest;
+import com.liferay.portal.kernel.portlet.ProtectedActionRequest;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.mashape.unirest.http.*;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+import javax.portlet.*;
 import java.io.*;
-public class utilApi {
+import java.util.Base64;
 
+public class utilApi {
+    static String tokenV="";
+    public static void getToken(RenderRequest renderRequest, RenderResponse renderResponse)
+            throws IOException, PortletException {
+        ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+        String username = themeDisplay.getUser().getEmailAddress();
+        PortletSession session = renderRequest.getPortletSession();
+        String token=username+":"+session.getAttribute(WebKeys.USER_PASSWORD,PortletSession.APPLICATION_SCOPE);
+        token = Base64.getEncoder().encodeToString(token.getBytes());
+        tokenV=token;
+        session.setAttribute("token",token, PortletSession.APPLICATION_SCOPE);
+
+    }
     public static String getGroupById(String id){
         Unirest.setTimeouts(0, 0);
         HttpResponse<String> response=null;
         try {
             response = Unirest.post("http://localhost:8080/api/jsonws/group/get-group")
-                    .header("Authorization", "Basic dGVzdEB0ZXN0LmNvbTpjZg==")
+                    .header("Authorization", "Basic "+tokenV)
                     .header("Content-Type", "application/x-www-form-urlencoded")
                     .header("Cookie", "GUEST_LANGUAGE_ID=en_US; JSESSIONID=A27FA9008EFB0635C84DDACDE863F4B4")
                     .field("groupId", id)
@@ -27,7 +45,7 @@ public class utilApi {
 
         try {
              response = Unirest.get("http://localhost:8080/api/jsonws/group/get-user-sites-groups")
-                    .header("Authorization", "Basic dGVzdEB0ZXN0LmNvbTpjZg==")
+                    .header("Authorization", "Basic "+tokenV)
                     .header("Cookie", "GUEST_LANGUAGE_ID=en_US; JSESSIONID=D86B36244D806EADB8588C43B1C600B7")
                     .asString();
         } catch (UnirestException e) {
@@ -43,7 +61,7 @@ public class utilApi {
         HttpResponse<String> response = null;
         try {
             response = Unirest.post("http://localhost:8080/api/jsonws/group/add-group")
-                    .header("Authorization", "Basic dGVzdEB0ZXN0LmNvbTpjZg==")
+                    .header("Authorization", "Basic "+tokenV)
                     .header("Content-Type", "application/x-www-form-urlencoded")
                     .header("Cookie", "GUEST_LANGUAGE_ID=en_US")
                     .field("parentGroupId",parentGroup )
@@ -74,7 +92,7 @@ public class utilApi {
         HttpResponse<String> response = null;
         try {
             response = Unirest.post("http://localhost:8080/api/jsonws/layout/add-layout")
-                    .header("Authorization", "Basic dGVzdEB0ZXN0LmNvbTpjZg==")
+                    .header("Authorization", "Basic "+tokenV)
                     .header("Content-Type", "application/x-www-form-urlencoded")
                     .header("Cookie", "GUEST_LANGUAGE_ID=en_US")
                     .field("groupId", parentGroup)

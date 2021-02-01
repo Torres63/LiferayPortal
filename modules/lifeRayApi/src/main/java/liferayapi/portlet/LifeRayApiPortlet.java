@@ -1,13 +1,22 @@
 package liferayapi.portlet;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.WebKeys;
 import liferayapi.constants.LifeRayApiPortletKeys;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
 import javax.portlet.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
 
 import liferayapi.util.utilApi;
 import org.json.JSONArray;
@@ -46,6 +55,9 @@ public class LifeRayApiPortlet extends MVCPortlet {
     String groupCreated="";
     @ProcessAction(name = "addLayout")
     public String addLayout(ActionRequest actionRequest, ActionResponse actionResponse) {
+
+
+
         String urlGen="";
         String groupName="";
         String siteName="";
@@ -57,7 +69,9 @@ public class LifeRayApiPortlet extends MVCPortlet {
         String typeSettings = ParamUtil.getString(actionRequest, "typeSettings");
         String parentSite = ParamUtil.getString(actionRequest, "parentSite");
         //------
-
+        HttpServletRequest request = PortalUtil.getHttpServletRequest(actionRequest);
+        String password = (String)request.getSession().getAttribute(WebKeys.CURRENT_URL);
+        log.info("password" + password);
 
         // Validaciones
         if (type.equals("url")) {
@@ -119,14 +133,24 @@ public class LifeRayApiPortlet extends MVCPortlet {
         return jsonArrayOutput.toString();
     }
 
+    @ProcessAction(name="reduceArray")
+    public void reduceArray(ActionRequest request, ActionResponse response){
+        System.out.println(ParamUtil.getString(request, "valueArray"));
+    }
 
     //Mandar a view.jsp  as travez del render
 
     @Override
     public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
             throws IOException, PortletException {
+        PortletSession session = renderRequest.getPortletSession();
+
+        utilApi.getToken(renderRequest,renderResponse);
+
         renderRequest.setAttribute("groups", getGroups());
         renderRequest.setAttribute("responses",responses);
+
         super.doView(renderRequest, renderResponse);
+
     }
 }
