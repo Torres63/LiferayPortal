@@ -16,9 +16,14 @@ package crudapps.service.impl;
 
 import com.liferay.portal.aop.AopService;
 
+import com.liferay.portal.kernel.dao.orm.QueryPos;
+import com.liferay.portal.kernel.dao.orm.SQLQuery;
+import com.liferay.portal.kernel.dao.orm.Session;
 import crudapps.service.base.CrudAppsLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+
+import java.util.List;
 
 /**
  * The implementation of the crud apps local service.
@@ -38,7 +43,14 @@ import org.osgi.service.component.annotations.Component;
 	service = AopService.class
 )
 public class CrudAppsLocalServiceImpl extends CrudAppsLocalServiceBaseImpl {
-
+	List<Object[]> getApps(String title){
+		Session session = crudAppsPersistence.openSession();
+		SQLQuery query = session.createSQLQuery("select * from portal1.crudapps_crudapps cr" +
+				" where cr.title LIKE '%?%'\n");
+		QueryPos pos =  QueryPos.getInstance(query);
+		pos.add(title);
+		return query.list();
+	}
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
